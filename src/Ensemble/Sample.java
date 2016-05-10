@@ -15,6 +15,11 @@ public class Sample implements Comparable {
 
     private Double sortFeature; //用于分割节点时排序的临时特征
 
+    public Sample(List<Double> features, int label){
+        this.setFeatures(features);
+        this.setLabel(label);
+    }
+
     public List<Double> getFeatures() {
         return features;
     }

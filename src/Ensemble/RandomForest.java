@@ -20,12 +20,37 @@ public class RandomForest {
 
     public RandomForest(List<String> featureNames, int treeNum)
     {
-        this.featureNames = featureNames;
-        this.treeNum = treeNum;
+        this.setFeatureNames(featureNames);
+        this.setTreeNum(treeNum);
+        this.setTrees(new ArrayList<CartTree>());
     }
 
-    public void fit(List<List<Integer>> x, List<Integer> y) {
+    public void fit(List<List<Double>> x, List<Integer> y) {
+        List<Sample> samples = null;
+        try {
+            samples = packDataSet(x, y);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("x和y长度不一致");
+        }
+        //以后可以拓展为并行化建树
+        for(int i = 0; i < getTreeNum(); i++){
+            List<Sample> partSamples = bootstrap(samples);
+            CartTree tree = new CartTree(partSamples, getMaxDepth(), getMinSamplesSplit());
+            tree.buildTree();
+            getTrees().add(tree);
+        }
+    }
 
+    private List<Sample> packDataSet(List<List<Double>> x, List<Integer> y) throws Exception{
+        if(x.size() != y.size()) {
+            throw new Exception();
+        }
+        List<Sample> samples = new ArrayList<>();
+        for(int i = 0; i < x.size(); i++){
+            samples.add(new Sample(x.get(i), y.get(i)));
+        }
+        return samples;
     }
 
     // 自助采样法
@@ -40,7 +65,7 @@ public class RandomForest {
         return new ArrayList<>(partSampleSet);
     }
 
-    public List<Integer> predict(List<List<Integer>> x) {
+    public List<Integer> predict(List<List<Double>> x) {
         return null;
     }
 
@@ -74,5 +99,13 @@ public class RandomForest {
 
     public void setFeatureNames(List<String> featureNames) {
         this.featureNames = featureNames;
+    }
+
+    public List<CartTree> getTrees() {
+        return trees;
+    }
+
+    public void setTrees(List<CartTree> trees) {
+        this.trees = trees;
     }
 }
