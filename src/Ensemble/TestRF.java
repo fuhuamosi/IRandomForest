@@ -44,7 +44,7 @@ public class TestRF {
         return lines;
     }
 
-    public static void show_res(List<Integer> labels, List<Integer> pres){
+    public static void show_res(List<Integer> labels, List<Integer> pres, String name){
         Integer tp = 0, tn = 0, fp = 0, fn = 0;
         for(int i = 0; i < labels.size(); i++){
             if(pres.get(i) == 1 && labels.get(i) == 1) tp += 1;
@@ -55,6 +55,7 @@ public class TestRF {
         double precision = (double)tp / (tp + tn);
         double recall = (double)tp / (tp + fp);
         double fScore = 2 * precision * recall / (precision + recall);
+        System.out.println(name);
         System.out.println("tp: " + tp.toString() + " fp: " + fp.toString()
                 + " tn: " + tn.toString() + " fn: " + fn.toString());
         System.out.println("准确率: " + precision);
@@ -92,7 +93,21 @@ public class TestRF {
             validation_y.add(new Integer(td.get(td.size() - 1)));
         }
         List<Integer> pre_y = rf.predict(validation_x);
-        show_res(validation_y, pre_y);
+        show_res(validation_y, pre_y, "验证集");
+
+        List<List<String>> test_data = readContent(fileHead + "\\test_set.csv");
+        List<List<Double>> test_x = new ArrayList<>();
+        List<Integer> test_y = new ArrayList<>();
+        for (List<String> td : test_data) {
+            List<Double> rowX = new ArrayList<>();
+            for(int i = 0; i < td.size() - 1; i++){
+                rowX.add(new Double(td.get(i)));
+            }
+            test_x.add(rowX);
+            test_y.add(new Integer(td.get(td.size() - 1)));
+        }
+        List<Integer> pre_y2 = rf.predict(test_x);
+        show_res(test_y, pre_y2, "测试集");
     }
 
 }

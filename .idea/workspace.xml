@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71006596-ebdb-4386-8548-60cfab701ee6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Ensemble/TestRF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Ensemble/CartTree.java" afterPath="$PROJECT_DIR$/src/Ensemble/CartTree.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Ensemble/RandomForest.java" afterPath="$PROJECT_DIR$/src/Ensemble/RandomForest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Ensemble/Sample.java" afterPath="$PROJECT_DIR$/src/Ensemble/Sample.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Ensemble/TreeNode.java" afterPath="$PROJECT_DIR$/src/Ensemble/TreeNode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/dataset/test_set.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/dataset/train_set.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/dataset/validation_set.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Ensemble/TestRF.java" afterPath="$PROJECT_DIR$/src/Ensemble/TestRF.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="randomforest.iws" />
@@ -36,13 +33,12 @@
         <entry file="file://$PROJECT_DIR$/src/Ensemble/Sample.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
               <folding>
                 <element signature="e#424#425#0" expanded="true" />
                 <element signature="e#455#456#0" expanded="true" />
                 <element signature="e#509#510#0" expanded="true" />
                 <element signature="e#549#550#0" expanded="true" />
-                <element signature="e#578#579#0" expanded="true" />
                 <element signature="e#606#607#0" expanded="true" />
                 <element signature="e#645#646#0" expanded="true" />
                 <element signature="e#679#680#0" expanded="true" />
@@ -59,11 +55,34 @@
         <entry file="file://$PROJECT_DIR$/src/Ensemble/TreeNode.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
               <folding>
                 <element signature="e#342#343#0" expanded="true" />
+                <element signature="e#379#380#0" expanded="true" />
+                <element signature="e#416#417#0" expanded="true" />
+                <element signature="e#447#448#0" expanded="true" />
+                <element signature="e#497#498#0" expanded="true" />
+                <element signature="e#537#538#0" expanded="true" />
+                <element signature="e#575#576#0" expanded="true" />
+                <element signature="e#607#608#0" expanded="true" />
+                <element signature="e#659#660#0" expanded="true" />
+                <element signature="e#701#702#0" expanded="true" />
+                <element signature="e#730#731#0" expanded="true" />
+                <element signature="e#758#759#0" expanded="true" />
+                <element signature="e#797#798#0" expanded="true" />
+                <element signature="e#831#832#0" expanded="true" />
+                <element signature="e#867#868#0" expanded="true" />
+                <element signature="e#899#900#0" expanded="true" />
+                <element signature="e#949#950#0" expanded="true" />
+                <element signature="e#991#992#0" expanded="true" />
+                <element signature="e#1022#1023#0" expanded="true" />
+                <element signature="e#1051#1052#0" expanded="true" />
                 <element signature="e#1096#1097#0" expanded="true" />
                 <element signature="e#1132#1133#0" expanded="true" />
+                <element signature="e#1168#1169#0" expanded="true" />
+                <element signature="e#1203#1204#0" expanded="true" />
+                <element signature="e#1256#1257#0" expanded="true" />
+                <element signature="e#1304#1305#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -73,17 +92,44 @@
         <entry file="file://$PROJECT_DIR$/src/Ensemble/CartTree.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="184" column="25" selection-start-line="184" selection-start-column="25" selection-end-line="184" selection-end-column="25" />
-              <folding />
+              <caret line="38" column="43" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
+              <folding>
+                <element signature="e#1129#1130#0" expanded="true" />
+                <element signature="e#1160#1161#0" expanded="true" />
+                <element signature="e#1210#1211#0" expanded="true" />
+                <element signature="e#1250#1251#0" expanded="true" />
+                <element signature="e#1290#1291#0" expanded="true" />
+                <element signature="e#1320#1321#0" expanded="true" />
+                <element signature="e#1372#1373#0" expanded="true" />
+                <element signature="e#1410#1411#0" expanded="true" />
+                <element signature="e#1442#1443#0" expanded="true" />
+                <element signature="e#1473#1474#0" expanded="true" />
+                <element signature="e#1518#1519#0" expanded="true" />
+                <element signature="e#1558#1559#0" expanded="true" />
+                <element signature="e#1592#1593#0" expanded="true" />
+                <element signature="e#1625#1626#0" expanded="true" />
+                <element signature="e#1674#1675#0" expanded="true" />
+                <element signature="e#1718#1719#0" expanded="true" />
+                <element signature="e#1759#1760#0" expanded="true" />
+                <element signature="e#1790#1791#0" expanded="true" />
+                <element signature="e#1844#1845#0" expanded="true" />
+                <element signature="e#1884#1885#0" expanded="true" />
+                <element signature="e#1923#1924#0" expanded="true" />
+                <element signature="e#1961#1962#0" expanded="true" />
+                <element signature="e#2020#2021#0" expanded="true" />
+                <element signature="e#2074#2075#0" expanded="true" />
+                <element signature="e#4479#4509#1" expanded="true" />
+                <element signature="e#4589#4619#1" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RandomForest.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RandomForest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Ensemble/RandomForest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="30" column="48" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
+            <state vertical-scroll-proportion="-1.7714286">
+              <caret line="5" column="3" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
               <folding>
                 <element signature="e#393#394#0" expanded="true" />
                 <element signature="e#435#436#0" expanded="true" />
@@ -116,11 +162,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestRF.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TestRF.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Ensemble/TestRF.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6873508">
-              <caret line="61" column="30" selection-start-line="61" selection-start-column="30" selection-end-line="61" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="85" column="55" selection-start-line="85" selection-start-column="55" selection-end-line="85" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -152,10 +198,10 @@
         <option value="$PROJECT_DIR$/src/TreeNode.java" />
         <option value="$PROJECT_DIR$/src/CartTree.java" />
         <option value="$PROJECT_DIR$/src/RandomForest.java" />
-        <option value="$PROJECT_DIR$/src/Ensemble/TreeNode.java" />
         <option value="$PROJECT_DIR$/src/Ensemble/Sample.java" />
-        <option value="$PROJECT_DIR$/src/Ensemble/RandomForest.java" />
+        <option value="$PROJECT_DIR$/src/Ensemble/TreeNode.java" />
         <option value="$PROJECT_DIR$/src/Ensemble/CartTree.java" />
+        <option value="$PROJECT_DIR$/src/Ensemble/RandomForest.java" />
         <option value="$PROJECT_DIR$/src/Ensemble/TestRF.java" />
       </list>
     </option>
@@ -658,7 +704,7 @@
       <option name="number" value="Default" />
       <updated>1462852291594</updated>
       <workItem from="1462852294256" duration="21911000" />
-      <workItem from="1463018839386" duration="17241000" />
+      <workItem from="1463018839386" duration="28500000" />
     </task>
     <task id="LOCAL-00001" summary="完善随机森林">
       <created>1462881713805</created>
@@ -666,11 +712,17 @@
       <option name="project" value="LOCAL" />
       <updated>1462881713805</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="实现随机森林和测试">
+      <created>1463041921112</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1463041921112</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39152000" />
+    <option name="totallyTimeSpent" value="50411000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
@@ -684,16 +736,16 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294271" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41666666" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4153646" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17291667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16111112" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21111111" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22569445" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39322916" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29296875" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -715,11 +767,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="完善随机森林" />
-    <option name="LAST_COMMIT_MESSAGE" value="完善随机森林" />
+    <MESSAGE value="实现随机森林和测试" />
+    <option name="LAST_COMMIT_MESSAGE" value="实现随机森林和测试" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="14" />
+      <option name="time" value="21" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -775,7 +828,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#1129#1130#0" expanded="true" />
+            <element signature="e#1160#1161#0" expanded="true" />
+            <element signature="e#1210#1211#0" expanded="true" />
+            <element signature="e#1250#1251#0" expanded="true" />
+            <element signature="e#1290#1291#0" expanded="true" />
+            <element signature="e#1320#1321#0" expanded="true" />
+            <element signature="e#1372#1373#0" expanded="true" />
+            <element signature="e#1410#1411#0" expanded="true" />
+            <element signature="e#1442#1443#0" expanded="true" />
+            <element signature="e#1473#1474#0" expanded="true" />
+            <element signature="e#1518#1519#0" expanded="true" />
+            <element signature="e#1558#1559#0" expanded="true" />
+            <element signature="e#1592#1593#0" expanded="true" />
+            <element signature="e#1625#1626#0" expanded="true" />
+            <element signature="e#1674#1675#0" expanded="true" />
+            <element signature="e#1718#1719#0" expanded="true" />
+            <element signature="e#1759#1760#0" expanded="true" />
+            <element signature="e#1790#1791#0" expanded="true" />
+            <element signature="e#1844#1845#0" expanded="true" />
+            <element signature="e#1884#1885#0" expanded="true" />
+            <element signature="e#1923#1924#0" expanded="true" />
+            <element signature="e#1961#1962#0" expanded="true" />
+            <element signature="e#2020#2021#0" expanded="true" />
+            <element signature="e#2074#2075#0" expanded="true" />
+            <element signature="e#4479#4509#1" expanded="true" />
+            <element signature="e#4589#4619#1" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -787,14 +867,6 @@
             <element signature="e#37254#37255#0" expanded="false" />
             <element signature="e#37319#37320#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0_67/src.zip!/java/util/Collections.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3328823">
-          <caret line="152" column="57" selection-start-line="152" selection-start-column="57" selection-end-line="152" selection-end-column="57" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -859,19 +931,16 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2326.601">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dataset/validation_set.csv">
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_67/src.zip!/java/util/Collections.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-539.33936">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.49656752">
+          <caret line="464" column="23" selection-start-line="464" selection-start-column="23" selection-end-line="464" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -879,13 +948,12 @@
     <entry file="file://$PROJECT_DIR$/src/Ensemble/Sample.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
             <element signature="e#424#425#0" expanded="true" />
             <element signature="e#455#456#0" expanded="true" />
             <element signature="e#509#510#0" expanded="true" />
             <element signature="e#549#550#0" expanded="true" />
-            <element signature="e#578#579#0" expanded="true" />
             <element signature="e#606#607#0" expanded="true" />
             <element signature="e#645#646#0" expanded="true" />
             <element signature="e#679#680#0" expanded="true" />
@@ -900,11 +968,34 @@
     <entry file="file://$PROJECT_DIR$/src/Ensemble/TreeNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
           <folding>
             <element signature="e#342#343#0" expanded="true" />
+            <element signature="e#379#380#0" expanded="true" />
+            <element signature="e#416#417#0" expanded="true" />
+            <element signature="e#447#448#0" expanded="true" />
+            <element signature="e#497#498#0" expanded="true" />
+            <element signature="e#537#538#0" expanded="true" />
+            <element signature="e#575#576#0" expanded="true" />
+            <element signature="e#607#608#0" expanded="true" />
+            <element signature="e#659#660#0" expanded="true" />
+            <element signature="e#701#702#0" expanded="true" />
+            <element signature="e#730#731#0" expanded="true" />
+            <element signature="e#758#759#0" expanded="true" />
+            <element signature="e#797#798#0" expanded="true" />
+            <element signature="e#831#832#0" expanded="true" />
+            <element signature="e#867#868#0" expanded="true" />
+            <element signature="e#899#900#0" expanded="true" />
+            <element signature="e#949#950#0" expanded="true" />
+            <element signature="e#991#992#0" expanded="true" />
+            <element signature="e#1022#1023#0" expanded="true" />
+            <element signature="e#1051#1052#0" expanded="true" />
             <element signature="e#1096#1097#0" expanded="true" />
             <element signature="e#1132#1133#0" expanded="true" />
+            <element signature="e#1168#1169#0" expanded="true" />
+            <element signature="e#1203#1204#0" expanded="true" />
+            <element signature="e#1256#1257#0" expanded="true" />
+            <element signature="e#1304#1305#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -912,15 +1003,52 @@
     <entry file="file://$PROJECT_DIR$/src/Ensemble/CartTree.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="184" column="25" selection-start-line="184" selection-start-column="25" selection-end-line="184" selection-end-column="25" />
-          <folding />
+          <caret line="38" column="43" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
+          <folding>
+            <element signature="e#1129#1130#0" expanded="true" />
+            <element signature="e#1160#1161#0" expanded="true" />
+            <element signature="e#1210#1211#0" expanded="true" />
+            <element signature="e#1250#1251#0" expanded="true" />
+            <element signature="e#1290#1291#0" expanded="true" />
+            <element signature="e#1320#1321#0" expanded="true" />
+            <element signature="e#1372#1373#0" expanded="true" />
+            <element signature="e#1410#1411#0" expanded="true" />
+            <element signature="e#1442#1443#0" expanded="true" />
+            <element signature="e#1473#1474#0" expanded="true" />
+            <element signature="e#1518#1519#0" expanded="true" />
+            <element signature="e#1558#1559#0" expanded="true" />
+            <element signature="e#1592#1593#0" expanded="true" />
+            <element signature="e#1625#1626#0" expanded="true" />
+            <element signature="e#1674#1675#0" expanded="true" />
+            <element signature="e#1718#1719#0" expanded="true" />
+            <element signature="e#1759#1760#0" expanded="true" />
+            <element signature="e#1790#1791#0" expanded="true" />
+            <element signature="e#1844#1845#0" expanded="true" />
+            <element signature="e#1884#1885#0" expanded="true" />
+            <element signature="e#1923#1924#0" expanded="true" />
+            <element signature="e#1961#1962#0" expanded="true" />
+            <element signature="e#2020#2021#0" expanded="true" />
+            <element signature="e#2074#2075#0" expanded="true" />
+            <element signature="e#4479#4509#1" expanded="true" />
+            <element signature="e#4589#4619#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Ensemble/TestRF.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="85" column="55" selection-start-line="85" selection-start-column="55" selection-end-line="85" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Ensemble/RandomForest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="48" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
+        <state vertical-scroll-proportion="-1.7714286">
+          <caret line="5" column="3" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
           <folding>
             <element signature="e#393#394#0" expanded="true" />
             <element signature="e#435#436#0" expanded="true" />
@@ -948,16 +1076,6 @@
             <element signature="e#4603#4604#0" expanded="true" />
             <element signature="e#4677#4678#0" expanded="true" />
             <element signature="e#4737#4738#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Ensemble/TestRF.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6873508">
-          <caret line="61" column="30" selection-start-line="61" selection-start-column="30" selection-end-line="61" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
