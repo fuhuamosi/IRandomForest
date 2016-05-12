@@ -5,17 +5,17 @@ package Ensemble;
  */
 public class TreeNode {
 
-    private int featureIndex; //½ÚµãÌØÕ÷Ë÷Òı
+    private int featureIndex; //èŠ‚ç‚¹ç‰¹å¾ç´¢å¼•
 
-    private TreeNode leftNode; //×ó½Úµã
+    private TreeNode leftNode; //å·¦èŠ‚ç‚¹
 
-    private TreeNode rightNode; //ÓÒ½Úµã
+    private TreeNode rightNode; //å³èŠ‚ç‚¹
 
-    private int label; //È¡Öµ0»ò1
+    private int label; //å–å€¼0æˆ–1
 
-    private boolean isLeaf; //ÊÇ·ñÒ¶×Ó½Úµã
+    private boolean isLeaf; //æ˜¯å¦å¶å­èŠ‚ç‚¹
 
-    private double threshold; //ÌØÕ÷»®·ÖµÄãĞÖµ
+    private double threshold; //ç‰¹å¾åˆ’åˆ†çš„é˜ˆå€¼
 
     public TreeNode() {
         this.setIsLeaf(false);

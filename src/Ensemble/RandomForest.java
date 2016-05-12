@@ -12,17 +12,24 @@ public class RandomForest {
 
     private List<String> featureNames;
 
-    private int treeNum = 30;
+    private int treeNum;
 
-    private int maxDepth = 20;
+    private int maxDepth;
 
-    private int minSamplesSplit = 2; //×îĞ¡½Úµã·Ö¸îÑù±¾Êı
+    private int minSamplesSplit = 2; //æœ€å°èŠ‚ç‚¹åˆ†å‰²æ ·æœ¬æ•°
 
-    public RandomForest(List<String> featureNames, int treeNum)
-    {
+    private List<Double> featureImportances;
+
+    public RandomForest(List<String> featureNames) {
+        this(featureNames, 30, 20);
+    }
+
+    public RandomForest(List<String> featureNames, int treeNum, int maxDepth) {
         this.setFeatureNames(featureNames);
         this.setTreeNum(treeNum);
+        this.setMaxDepth(maxDepth);
         this.setTrees(new ArrayList<CartTree>());
+        this.setFeatureImportances(new ArrayList<>(Collections.nCopies(featureNames.size(), 0.0)));
     }
 
     public void fit(List<List<Double>> x, List<Integer> y) {
@@ -31,34 +38,43 @@ public class RandomForest {
             samples = packDataSet(x, y);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("xºÍy³¤¶È²»Ò»ÖÂ");
+            System.out.println("xå’Œyé•¿åº¦ä¸ä¸€è‡´æˆ–xå’Œç‰¹å¾åé•¿åº¦ä¸ä¸€è‡´");
         }
-        //ÒÔºó¿ÉÒÔÍØÕ¹Îª²¢ĞĞ»¯½¨Ê÷
-        for(int i = 0; i < getTreeNum(); i++){
+        //ä»¥åå¯ä»¥æ‹“å±•ä¸ºå¹¶è¡ŒåŒ–å»ºæ ‘
+        for (int i = 0; i < getTreeNum(); i++) {
             List<Sample> partSamples = bootstrap(samples);
             CartTree tree = new CartTree(partSamples, getMaxDepth(), getMinSamplesSplit());
             tree.buildTree();
             getTrees().add(tree);
+            //è®¡ç®—ç‰¹å¾æƒé‡
+            calFeatureImportances(tree.getInfoGain());
         }
     }
 
-    private List<Sample> packDataSet(List<List<Double>> x, List<Integer> y) throws Exception{
-        if(x.size() != y.size()) {
+    private void calFeatureImportances(List<Double> infoGain) {
+        List<Double> importances = getFeatureImportances();
+        for (int i = 0; i < importances.size(); i++) {
+            importances.set(i, importances.get(i) + infoGain.get(i));
+        }
+    }
+
+    private List<Sample> packDataSet(List<List<Double>> x, List<Integer> y) throws Exception {
+        if (x.size() != y.size() || x.get(0).size() != getFeatureNames().size()) {
             throw new Exception();
         }
         List<Sample> samples = new ArrayList<>();
-        for(int i = 0; i < x.size(); i++){
+        for (int i = 0; i < x.size(); i++) {
             samples.add(new Sample(x.get(i), y.get(i)));
         }
         return samples;
     }
 
-    // ×ÔÖú²ÉÑù·¨
-    private List<Sample> bootstrap(List<Sample> samples){
+    // è‡ªåŠ©é‡‡æ ·æ³•
+    private List<Sample> bootstrap(List<Sample> samples) {
         Set<Sample> partSampleSet = new HashSet<>();
         int sampleSize = samples.size();
         Random random = new Random(System.currentTimeMillis());
-        for(int i = 0; i < sampleSize; i++){
+        for (int i = 0; i < sampleSize; i++) {
             int sampleIndex = random.nextInt(sampleSize);
             partSampleSet.add(samples.get(sampleIndex));
         }
@@ -66,7 +82,33 @@ public class RandomForest {
     }
 
     public List<Integer> predict(List<List<Double>> x) {
-        return null;
+        List<Integer> predictions = new ArrayList<>();
+        for (List<Double> aX : x) {
+            Sample sample = new Sample(aX, -1);
+            int posVote = 0, negVote = 0;
+            for (int j = 0; j < getTreeNum(); j++) {
+                CartTree tree = getTrees().get(j);
+                int pre_y = tree.traverseTree(sample, tree.getRootNode());
+                if (pre_y == 1) posVote += 1;
+                else if (pre_y == 0) negVote += 1;
+            }
+            int predict = (posVote >= negVote ? 1 : 0);
+            predictions.add(predict);
+        }
+        return predictions;
+    }
+
+    //æŸ¥çœ‹å½’ä¸€åŒ–åçš„ç‰¹å¾æƒé‡
+    public void view_weight() {
+        double sum = 0;
+        for (double weight : getFeatureImportances()) {
+            sum += weight;
+        }
+        for (int i = 0; i < getFeatureImportances().size(); i++) {
+            String name = getFeatureNames().get(i);
+            Double weight = getFeatureImportances().get(i) / sum;
+            System.out.println(name + ": " + weight.toString());
+        }
     }
 
     public int getTreeNum() {
@@ -107,5 +149,14 @@ public class RandomForest {
 
     public void setTrees(List<CartTree> trees) {
         this.trees = trees;
+    }
+
+
+    public List<Double> getFeatureImportances() {
+        return featureImportances;
+    }
+
+    public void setFeatureImportances(List<Double> featureImportances) {
+        this.featureImportances = featureImportances;
     }
 }

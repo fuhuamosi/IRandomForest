@@ -3,23 +3,24 @@ package Ensemble;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by fuhua in UC on 2016/5/10.
  */
 public class CartTree {
 
-    private TreeNode rootNode; //¸ù½Úµã
+    private TreeNode rootNode; //æ ¹èŠ‚ç‚¹
 
-    private List<Sample> samples; //²ÉÑùµÃµ½µÄÑù±¾
+    private List<Sample> samples; //é‡‡æ ·å¾—åˆ°çš„æ ·æœ¬
 
-    private int maxDepth; //×î´óÉî¶È
+    private int maxDepth; //æœ€å¤§æ·±åº¦
 
-    private int minSamplesSplit; //×îĞ¡½Úµã·Ö¸îÑù±¾Êı
+    private int minSamplesSplit; //æœ€å°èŠ‚ç‚¹åˆ†å‰²æ ·æœ¬æ•°
 
-    private int featureCnt; //ÌØÕ÷×ÜÊı
+    private int featureCnt; //ç‰¹å¾æ€»æ•°
 
-    private List<Double> infoGain; //Ã¿Î¬ÌØÕ÷µÄĞÅÏ¢ÔöÒæ(Ä¬ÈÏÊ¹ÓÃ»ùÄáÖ¸Êı)
+    private List<Double> infoGain; //æ¯ç»´ç‰¹å¾çš„ä¿¡æ¯å¢ç›Š(é»˜è®¤ä½¿ç”¨åŸºå°¼æŒ‡æ•°)
 
     public CartTree(ArrayList<Sample> samples) {
         this(samples, 20, 2);
@@ -36,7 +37,7 @@ public class CartTree {
 
     public void buildTree() {
         growTree(getRootNode(), getSamples(), generateRandomFeatureIndexes(),
-                    0, 1);
+                0, 1);
     }
 
     public TreeNode getRootNode() {
@@ -87,54 +88,51 @@ public class CartTree {
         this.minSamplesSplit = minSamplesSplit;
     }
 
-    public List<Integer> predict(List<Sample> newSamples){
+    public List<Integer> predict(List<Sample> newSamples) {
         List<Integer> predictions = new ArrayList<>();
-        for(Sample sample : newSamples){
+        for (Sample sample : newSamples) {
             int prediction = traverseTree(sample, getRootNode());
             predictions.add(prediction);
         }
         return predictions;
     }
 
-    private int traverseTree(Sample sample, TreeNode node) {
-        if(node.isLeaf()){
+    public int traverseTree(Sample sample, TreeNode node) {
+        if (node.isLeaf()) {
             return node.getLabel();
-        }
-        else {
+        } else {
             int featureIndex = node.getFeatureIndex();
             double threshold = node.getThreshold();
-            if(sample.getFeatures().get(featureIndex) < threshold)
-            {
+            if (sample.getFeatures().get(featureIndex) < threshold) {
                 return traverseTree(sample, node.getLeftNode());
-            }
-            else {
+            } else {
                 return traverseTree(sample, node.getRightNode());
             }
         }
     }
 
-    // ÔÚÄ³¸ö½ÚµãÉÏÉú³¤Ê÷
+    // åœ¨æŸä¸ªèŠ‚ç‚¹ä¸Šç”Ÿé•¿æ ‘
     private void growTree(TreeNode node, List<Sample> samples,
                           List<Integer> featureIndexes, int fatherLabel,
                           int depth) {
         int sampleSize = samples.size();
-        // ¸Ã½ÚµãÃ»ÓĞÑù±¾Ê±£¬Ê¹ÓÃ¸¸½Úµã¶àÊıÑù±¾µÄ±êÇ©×÷Îª×Ô¼º±êÇ©
+        // è¯¥èŠ‚ç‚¹æ²¡æœ‰æ ·æœ¬æ—¶ï¼Œä½¿ç”¨çˆ¶èŠ‚ç‚¹å¤šæ•°æ ·æœ¬çš„æ ‡ç­¾ä½œä¸ºè‡ªå·±æ ‡ç­¾
         if (sampleSize == 0) {
             node.setIsLeaf(true);
             node.setLabel(fatherLabel);
         } else {
             List<Integer> counts = calSample(samples);
             int majorLabel = (counts.get(0) > counts.get(1)) ? 0 : 1;
-            // ËùÓĞÑù±¾¶¼ÊÇÍ¬Ò»¸ö±êÇ©
+            // æ‰€æœ‰æ ·æœ¬éƒ½æ˜¯åŒä¸€ä¸ªæ ‡ç­¾
             if (counts.get(0) == sampleSize || counts.get(1) == sampleSize) {
                 node.setIsLeaf(true);
                 node.setLabel(majorLabel);
-                // µ½´ï×î´óÉî¶È»òÕß×îĞ¡½Úµã·Ö¸îÑù±¾Êı£¬Í£Ö¹·Ö¸î
+                // åˆ°è¾¾æœ€å¤§æ·±åº¦æˆ–è€…æœ€å°èŠ‚ç‚¹åˆ†å‰²æ ·æœ¬æ•°ï¼Œåœæ­¢åˆ†å‰²
             } else if (depth >= getMaxDepth() || sampleSize < getMinSamplesSplit()) {
                 node.setIsLeaf(true);
                 node.setLabel(majorLabel);
             } else {
-                // ·Ö¸î½Úµã
+                // åˆ†å‰²èŠ‚ç‚¹
                 splitNode(node, samples, featureIndexes, majorLabel, depth);
             }
         }
@@ -145,6 +143,12 @@ public class CartTree {
                            int majorLabel, int depth) {
         List<Object> bestList = chooseFeature(samples, featureIndexes);
         int bestFeatureIndex = (int) bestList.get(0);
+        // åˆ†å‰²å¤±è´¥
+        if (bestFeatureIndex < 0) {
+            node.setIsLeaf(true);
+            node.setLabel(majorLabel);
+            return;
+        }
         double bestThreshold = (double) bestList.get(1);
         @SuppressWarnings("unchecked")
         List<Sample> bestLeftSamples = (List<Sample>) bestList.get(2);
@@ -152,20 +156,20 @@ public class CartTree {
         List<Sample> bestRightSamples = (List<Sample>) bestList.get(3);
         double bestGiniGain = (double) bestList.get(4);
         double newGiniGain = this.getInfoGain().get(bestFeatureIndex) + bestGiniGain;
-        // ±£´æ×îºÃÌØÕ÷µÄĞÅÏ¢ÔöÒæ
+        // ä¿å­˜æœ€å¥½ç‰¹å¾çš„ä¿¡æ¯å¢ç›Š
         this.getInfoGain().set(bestFeatureIndex, newGiniGain);
         node.setFeatureIndex(bestFeatureIndex);
         node.setThreshold(bestThreshold);
         node.setLeftNode(new TreeNode());
         node.setRightNode(new TreeNode());
-        // Éú³¤×ó×ÓÊ÷ºÍÓÒ×ÓÊ÷
+        // ç”Ÿé•¿å·¦å­æ ‘å’Œå³å­æ ‘
         growTree(node.getLeftNode(), bestLeftSamples, generateRandomFeatureIndexes(),
                 majorLabel, depth + 1);
         growTree(node.getRightNode(), bestRightSamples, generateRandomFeatureIndexes(),
                 majorLabel, depth + 1);
     }
 
-    //Ñ¡Ôñ×îºÏÊÊµÄ·Ö¸îÌØÕ÷ºÍãĞÖµ
+    //é€‰æ‹©æœ€åˆé€‚çš„åˆ†å‰²ç‰¹å¾å’Œé˜ˆå€¼
     private List<Object> chooseFeature(List<Sample> samples, List<Integer> featureIndexes) {
         int sampleSize = samples.size();
         double oriGini = calGini(samples);
@@ -174,22 +178,26 @@ public class CartTree {
         double bestThreshold = -1;
         List<Sample> bestLeftSamples = null, bestRightSamples = null;
         for (Integer featureIndex : featureIndexes) {
-            // ÉèÖÃÁÙÊ±µÄÅÅĞòÌØÕ÷
+            // è®¾ç½®ä¸´æ—¶çš„æ’åºç‰¹å¾
             for (Sample sample : samples) {
                 sample.setSortFeature(sample.getFeatures().get(featureIndex));
             }
-            // ½«Ñù±¾°´ÌØÕ÷ÕıÏòÅÅĞò
+            // å°†æ ·æœ¬æŒ‰ç‰¹å¾æ­£å‘æ’åº
             Collections.sort(samples);
             for (int i = 0; i < sampleSize - 1; i++) {
                 Sample leftSample = samples.get(i), rightSample = samples.get(i + 1);
-                if (leftSample.getLabel() == rightSample.getLabel()) continue;
+                if (leftSample.getLabel() == rightSample.getLabel()
+                        || Objects.equals(leftSample.getFeatures().get(featureIndex),
+                        rightSample.getFeatures().get(featureIndex))) {
+                    continue;
+                }
                 List<Sample> leftSamples = samples.subList(0, i + 1);
                 List<Sample> rightSamples = samples.subList(i + 1, sampleSize);
                 double splitGini = 0.0;
                 splitGini += (double) leftSamples.size() / sampleSize * calGini(leftSamples);
                 splitGini += (double) rightSamples.size() / sampleSize * calGini(rightSamples);
-                // ·Ö¸îÑù±¾µÄGiniĞ¡ÓÚµÈÓÚµ±Ç°×îĞ¡Gini
-                if (splitGini <= minGini) {
+                // åˆ†å‰²æ ·æœ¬çš„Giniå°äºå½“å‰æœ€å°Gini
+                if (splitGini < minGini) {
                     bestFeatureIndex = featureIndex;
                     bestThreshold = (leftSample.getFeatures().get(featureIndex) +
                             rightSample.getFeatures().get(featureIndex)) / 2.0;
@@ -208,18 +216,18 @@ public class CartTree {
         return bestList;
     }
 
-    // ¼ÆËãÒ»·İÑù±¾µÄ»ùÄáÖ¸Êı
+    // è®¡ç®—ä¸€ä»½æ ·æœ¬çš„åŸºå°¼æŒ‡æ•°
     private double calGini(List<Sample> samples) {
         double res = 0.0;
         int sampleSize = samples.size();
         List<Integer> counts = calSample(samples);
-        res += (double) counts.get(0) / sampleSize;
-        res += (double) counts.get(1) / sampleSize;
+        res += Math.pow((double) counts.get(0) / sampleSize, 2);
+        res += Math.pow((double) counts.get(1) / sampleSize, 2);
         res = 1 - res;
         return res;
     }
 
-    // ¼ÆËãÕı¸ºÑù±¾³öÏÖ´ÎÊı
+    // è®¡ç®—æ­£è´Ÿæ ·æœ¬å‡ºç°æ¬¡æ•°
     private List<Integer> calSample(List<Sample> samples) {
         int positiveCnt = 0, negativeCnt = 0;
         for (Sample sample : samples) {
@@ -235,7 +243,7 @@ public class CartTree {
         return counts;
     }
 
-    // Ëæ»úÑ¡È¡ÌØÕ÷
+    // éšæœºé€‰å–ç‰¹å¾
     private List<Integer> generateRandomFeatureIndexes() {
         List<Integer> featureIndexes = new ArrayList<>();
         for (int i = 0; i < getFeatureCnt(); i++) {

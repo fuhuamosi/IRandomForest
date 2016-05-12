@@ -6,14 +6,14 @@ import java.util.List;
  * Created by fuhua in UC on 2016/5/10.
  */
 
-//Ã¿ĞĞÊı¾İ¿´³ÉÒ»¸öÑù±¾
+//æ¯è¡Œæ•°æ®çœ‹æˆä¸€ä¸ªæ ·æœ¬
 public class Sample implements Comparable {
 
     private List<Double> features;
 
     private int label;
 
-    private Double sortFeature; //ÓÃÓÚ·Ö¸î½ÚµãÊ±ÅÅĞòµÄÁÙÊ±ÌØÕ÷
+    private Double sortFeature; //ç”¨äºåˆ†å‰²èŠ‚ç‚¹æ—¶æ’åºçš„ä¸´æ—¶ç‰¹å¾
 
     public Sample(List<Double> features, int label){
         this.setFeatures(features);
