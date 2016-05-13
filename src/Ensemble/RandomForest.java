@@ -71,14 +71,14 @@ public class RandomForest {
 
     // 自助采样法
     private List<Sample> bootstrap(List<Sample> samples) {
-        Set<Sample> partSampleSet = new HashSet<>();
+        List<Sample> partSample = new ArrayList<>();
         int sampleSize = samples.size();
         Random random = new Random(System.currentTimeMillis());
         for (int i = 0; i < sampleSize; i++) {
             int sampleIndex = random.nextInt(sampleSize);
-            partSampleSet.add(samples.get(sampleIndex));
+            partSample.add(samples.get(sampleIndex));
         }
-        return new ArrayList<>(partSampleSet);
+        return partSample;
     }
 
     public List<Integer> predict(List<List<Double>> x) {

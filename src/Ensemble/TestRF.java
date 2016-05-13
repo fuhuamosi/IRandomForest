@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,7 +12,7 @@ import java.util.List;
  */
 public class TestRF {
 
-    public static List<String> readNames(String filename) {
+    private static List<String> readNames(String filename) {
         List<String> allNames = new ArrayList<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(filename));
@@ -28,7 +27,7 @@ public class TestRF {
         return allNames;
     }
 
-    public static List<List<String>> readContent(String filename) {
+    private static List<List<String>> readContent(String filename) {
         List<List<String>> lines = new ArrayList<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(filename));
@@ -44,16 +43,16 @@ public class TestRF {
         return lines;
     }
 
-    public static void show_res(List<Integer> labels, List<Integer> pres, String name){
+    private static void show_res(List<Integer> labels, List<Integer> pres, String name) {
         Integer tp = 0, tn = 0, fp = 0, fn = 0;
-        for(int i = 0; i < labels.size(); i++){
-            if(pres.get(i) == 1 && labels.get(i) == 1) tp += 1;
-            else if(pres.get(i) == 1 && labels.get(i) == 0) tn += 1;
-            else if(pres.get(i) == 0 && labels.get(i) == 1) fp += 1;
-            else if(pres.get(i) == 0 && labels.get(i) == 0) fn += 1;
+        for (int i = 0; i < labels.size(); i++) {
+            if (pres.get(i) == 1 && labels.get(i) == 1) tp += 1;
+            else if (pres.get(i) == 1 && labels.get(i) == 0) tn += 1;
+            else if (pres.get(i) == 0 && labels.get(i) == 1) fp += 1;
+            else if (pres.get(i) == 0 && labels.get(i) == 0) fn += 1;
         }
-        double precision = (double)tp / (tp + tn);
-        double recall = (double)tp / (tp + fp);
+        double precision = (double) tp / (tp + tn);
+        double recall = (double) tp / (tp + fp);
         double fScore = 2 * precision * recall / (precision + recall);
         System.out.println(name);
         System.out.println("tp: " + tp.toString() + " fp: " + fp.toString()
@@ -73,7 +72,7 @@ public class TestRF {
         List<Integer> train_y = new ArrayList<>();
         for (List<String> td : train_data) {
             List<Double> rowX = new ArrayList<>();
-            for(int i = 0; i < td.size() - 1; i++){
+            for (int i = 0; i < td.size() - 1; i++) {
                 rowX.add(new Double(td.get(i)));
             }
             train_x.add(rowX);
@@ -86,7 +85,7 @@ public class TestRF {
         List<Integer> validation_y = new ArrayList<>();
         for (List<String> td : validation_data) {
             List<Double> rowX = new ArrayList<>();
-            for(int i = 0; i < td.size() - 1; i++){
+            for (int i = 0; i < td.size() - 1; i++) {
                 rowX.add(new Double(td.get(i)));
             }
             validation_x.add(rowX);
@@ -100,7 +99,7 @@ public class TestRF {
         List<Integer> test_y = new ArrayList<>();
         for (List<String> td : test_data) {
             List<Double> rowX = new ArrayList<>();
-            for(int i = 0; i < td.size() - 1; i++){
+            for (int i = 0; i < td.size() - 1; i++) {
                 rowX.add(new Double(td.get(i)));
             }
             test_x.add(rowX);

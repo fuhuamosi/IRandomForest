@@ -177,6 +177,7 @@ public class CartTree {
         int bestFeatureIndex = -1;
         double bestThreshold = -1;
         List<Sample> bestLeftSamples = null, bestRightSamples = null;
+        double bestLeftGini = 0, bestRightGini = 0;
         for (Integer featureIndex : featureIndexes) {
             // 设置临时的排序特征
             for (Sample sample : samples) {
@@ -186,24 +187,28 @@ public class CartTree {
             Collections.sort(samples);
             for (int i = 0; i < sampleSize - 1; i++) {
                 Sample leftSample = samples.get(i), rightSample = samples.get(i + 1);
+                double leftFeature = leftSample.getFeatures().get(featureIndex);
+                double rightFeature = rightSample.getFeatures().get(featureIndex);
+                // 标签发生变化再分割
                 if (leftSample.getLabel() == rightSample.getLabel()
-                        || Objects.equals(leftSample.getFeatures().get(featureIndex),
-                        rightSample.getFeatures().get(featureIndex))) {
+                        || Objects.equals(leftFeature, rightFeature)) {
                     continue;
                 }
                 List<Sample> leftSamples = samples.subList(0, i + 1);
                 List<Sample> rightSamples = samples.subList(i + 1, sampleSize);
                 double splitGini = 0.0;
-                splitGini += (double) leftSamples.size() / sampleSize * calGini(leftSamples);
-                splitGini += (double) rightSamples.size() / sampleSize * calGini(rightSamples);
+                double leftGini = calGini(leftSamples), rightGini = calGini(rightSamples);
+                splitGini += (double) leftSamples.size() / sampleSize * leftGini;
+                splitGini += (double) rightSamples.size() / sampleSize * rightGini;
                 // 分割样本的Gini小于当前最小Gini
                 if (splitGini < minGini) {
                     bestFeatureIndex = featureIndex;
-                    bestThreshold = (leftSample.getFeatures().get(featureIndex) +
-                            rightSample.getFeatures().get(featureIndex)) / 2.0;
+                    bestThreshold = (leftFeature + rightFeature) / 2.0;
                     bestLeftSamples = leftSamples;
                     bestRightSamples = rightSamples;
                     minGini = splitGini;
+                    bestLeftGini = leftGini;
+                    bestRightGini = rightGini;
                 }
             }
         }
@@ -212,13 +217,17 @@ public class CartTree {
         bestList.add(bestThreshold);
         bestList.add(bestLeftSamples);
         bestList.add(bestRightSamples);
-        bestList.add(oriGini - minGini);
+        double sonGini = 0, fatherGini = oriGini * sampleSize;
+        if(bestLeftSamples != null) sonGini += bestLeftGini * bestLeftSamples.size();
+        if(bestRightSamples != null) sonGini += bestRightGini * bestRightSamples.size();
+        bestList.add(fatherGini - sonGini);
         return bestList;
     }
 
     // 计算一份样本的基尼指数
     private double calGini(List<Sample> samples) {
         double res = 0.0;
+        if (samples == null) return 0;
         int sampleSize = samples.size();
         List<Integer> counts = calSample(samples);
         res += Math.pow((double) counts.get(0) / sampleSize, 2);
