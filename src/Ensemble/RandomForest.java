@@ -16,18 +16,19 @@ public class RandomForest {
 
     private int maxDepth;
 
-    private int minSamplesSplit = 2; //最小节点分割样本数
+    private int minSamplesSplit; //最小节点分割样本数
 
     private List<Double> featureImportances;
 
     public RandomForest(List<String> featureNames) {
-        this(featureNames, 30, 20);
+        this(featureNames, 30, 20, 30);
     }
 
-    public RandomForest(List<String> featureNames, int treeNum, int maxDepth) {
+    public RandomForest(List<String> featureNames, int treeNum, int maxDepth, int minSamplesSplit) {
         this.setFeatureNames(featureNames);
         this.setTreeNum(treeNum);
         this.setMaxDepth(maxDepth);
+        this.setMinSamplesSplit(minSamplesSplit);
         this.setTrees(new ArrayList<CartTree>());
         this.setFeatureImportances(new ArrayList<>(Collections.nCopies(featureNames.size(), 0.0)));
     }
@@ -85,12 +86,12 @@ public class RandomForest {
         List<Integer> predictions = new ArrayList<>();
         for (List<Double> aX : x) {
             Sample sample = new Sample(aX, -1);
-            int posVote = 0, negVote = 0;
+            double posVote = 0, negVote = 0;
             for (int j = 0; j < getTreeNum(); j++) {
                 CartTree tree = getTrees().get(j);
-                int pre_y = tree.traverseTree(sample, tree.getRootNode());
-                if (pre_y == 1) posVote += 1;
-                else if (pre_y == 0) negVote += 1;
+                List<Double> pre_y = tree.traverseTree(sample, tree.getRootNode());
+                negVote += pre_y.get(0);
+                posVote += pre_y.get(1);
             }
             int predict = (posVote >= negVote ? 1 : 0);
             predictions.add(predict);

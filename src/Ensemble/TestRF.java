@@ -62,7 +62,6 @@ public class TestRF {
         System.out.println("f值: " + fScore);
     }
 
-
     public static void main(String[] args) {
         String fileHead = "E:\\广告数据集\\code\\randomforest\\src\\dataset";
         List<String> featureNames = readNames(fileHead + "\\train_set.csv");
@@ -73,20 +72,25 @@ public class TestRF {
         for (List<String> td : train_data) {
             List<Double> rowX = new ArrayList<>();
             for (int i = 0; i < td.size() - 1; i++) {
-                rowX.add(new Double(td.get(i)));
+                Double temp = new Double(td.get(i));
+                temp = Math.round(temp * 1000) / 1000.0;
+                rowX.add(temp);
             }
             train_x.add(rowX);
             train_y.add(new Integer(td.get(td.size() - 1)));
         }
         rf.fit(train_x, train_y);
         rf.view_weight();
+
         List<List<String>> validation_data = readContent(fileHead + "\\validation_set.csv");
         List<List<Double>> validation_x = new ArrayList<>();
         List<Integer> validation_y = new ArrayList<>();
         for (List<String> td : validation_data) {
             List<Double> rowX = new ArrayList<>();
             for (int i = 0; i < td.size() - 1; i++) {
-                rowX.add(new Double(td.get(i)));
+                Double temp = new Double(td.get(i));
+                temp = Math.round(temp * 1000) / 1000.0;
+                rowX.add(temp);
             }
             validation_x.add(rowX);
             validation_y.add(new Integer(td.get(td.size() - 1)));
@@ -100,7 +104,9 @@ public class TestRF {
         for (List<String> td : test_data) {
             List<Double> rowX = new ArrayList<>();
             for (int i = 0; i < td.size() - 1; i++) {
-                rowX.add(new Double(td.get(i)));
+                Double temp = new Double(td.get(i));
+                temp = Math.round(temp * 1000) / 1000.0;
+                rowX.add(temp);
             }
             test_x.add(rowX);
             test_y.add(new Integer(td.get(td.size() - 1)));

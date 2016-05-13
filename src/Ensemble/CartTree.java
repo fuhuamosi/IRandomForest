@@ -1,9 +1,6 @@
 package Ensemble;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created by fuhua in UC on 2016/5/10.
@@ -37,7 +34,7 @@ public class CartTree {
 
     public void buildTree() {
         growTree(getRootNode(), getSamples(), generateRandomFeatureIndexes(),
-                0, 1);
+                1);
     }
 
     public TreeNode getRootNode() {
@@ -88,18 +85,9 @@ public class CartTree {
         this.minSamplesSplit = minSamplesSplit;
     }
 
-    public List<Integer> predict(List<Sample> newSamples) {
-        List<Integer> predictions = new ArrayList<>();
-        for (Sample sample : newSamples) {
-            int prediction = traverseTree(sample, getRootNode());
-            predictions.add(prediction);
-        }
-        return predictions;
-    }
-
-    public int traverseTree(Sample sample, TreeNode node) {
+    public List<Double> traverseTree(Sample sample, TreeNode node) {
         if (node.isLeaf()) {
-            return node.getLabel();
+            return node.getVotes();
         } else {
             int featureIndex = node.getFeatureIndex();
             double threshold = node.getThreshold();
@@ -113,28 +101,30 @@ public class CartTree {
 
     // 在某个节点上生长树
     private void growTree(TreeNode node, List<Sample> samples,
-                          List<Integer> featureIndexes, int fatherLabel,
+                          List<Integer> featureIndexes,
                           int depth) {
         int sampleSize = samples.size();
-        // 该节点没有样本时，使用父节点多数样本的标签作为自己标签
-        if (sampleSize == 0) {
+        List<Integer> counts = calSample(samples);
+        int majorLabel = (counts.get(0) > counts.get(1)) ? 0 : 1;
+        List<Double> votes = new ArrayList<>();
+        votes.add(0.0);
+        votes.add(0.0);
+        // 所有样本都是同一个标签
+        if (counts.get(0) == sampleSize || counts.get(1) == sampleSize) {
             node.setIsLeaf(true);
-            node.setLabel(fatherLabel);
+            node.setLabel(majorLabel);
+        }
+        // 到达最大深度或者最小节点分割样本数，停止分割
+        else if (depth >= getMaxDepth() || sampleSize < getMinSamplesSplit()) {
+            node.setIsLeaf(true);
+            node.setLabel(majorLabel);
         } else {
-            List<Integer> counts = calSample(samples);
-            int majorLabel = (counts.get(0) > counts.get(1)) ? 0 : 1;
-            // 所有样本都是同一个标签
-            if (counts.get(0) == sampleSize || counts.get(1) == sampleSize) {
-                node.setIsLeaf(true);
-                node.setLabel(majorLabel);
-                // 到达最大深度或者最小节点分割样本数，停止分割
-            } else if (depth >= getMaxDepth() || sampleSize < getMinSamplesSplit()) {
-                node.setIsLeaf(true);
-                node.setLabel(majorLabel);
-            } else {
-                // 分割节点
-                splitNode(node, samples, featureIndexes, majorLabel, depth);
-            }
+            // 分割节点
+            splitNode(node, samples, featureIndexes, majorLabel, depth);
+        }
+        if (node.isLeaf()) {
+            votes.set(majorLabel, (double) counts.get(majorLabel) / sampleSize);
+            node.setVotes(votes);
         }
     }
 
@@ -164,9 +154,9 @@ public class CartTree {
         node.setRightNode(new TreeNode());
         // 生长左子树和右子树
         growTree(node.getLeftNode(), bestLeftSamples, generateRandomFeatureIndexes(),
-                majorLabel, depth + 1);
+                depth + 1);
         growTree(node.getRightNode(), bestRightSamples, generateRandomFeatureIndexes(),
-                majorLabel, depth + 1);
+                depth + 1);
     }
 
     //选择最合适的分割特征和阈值
@@ -187,11 +177,11 @@ public class CartTree {
             Collections.sort(samples);
             for (int i = 0; i < sampleSize - 1; i++) {
                 Sample leftSample = samples.get(i), rightSample = samples.get(i + 1);
-                double leftFeature = leftSample.getFeatures().get(featureIndex);
-                double rightFeature = rightSample.getFeatures().get(featureIndex);
+                Double leftFeature = leftSample.getFeatures().get(featureIndex);
+                Double rightFeature = rightSample.getFeatures().get(featureIndex);
                 // 标签发生变化再分割
                 if (leftSample.getLabel() == rightSample.getLabel()
-                        || Objects.equals(leftFeature, rightFeature)) {
+                        || leftFeature.equals(rightFeature)) {
                     continue;
                 }
                 List<Sample> leftSamples = samples.subList(0, i + 1);
@@ -212,14 +202,15 @@ public class CartTree {
                 }
             }
         }
+
         List<Object> bestList = new ArrayList<>();
         bestList.add(bestFeatureIndex);
         bestList.add(bestThreshold);
         bestList.add(bestLeftSamples);
         bestList.add(bestRightSamples);
         double sonGini = 0, fatherGini = oriGini * sampleSize;
-        if(bestLeftSamples != null) sonGini += bestLeftGini * bestLeftSamples.size();
-        if(bestRightSamples != null) sonGini += bestRightGini * bestRightSamples.size();
+        if (bestLeftSamples != null) sonGini += bestLeftGini * bestLeftSamples.size();
+        if (bestRightSamples != null) sonGini += bestRightGini * bestRightSamples.size();
         bestList.add(fatherGini - sonGini);
         return bestList;
     }

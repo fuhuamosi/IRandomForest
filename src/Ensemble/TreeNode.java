@@ -1,5 +1,7 @@
 package Ensemble;
 
+import java.util.List;
+
 /**
  * Created by fuhua in UC on 2016/5/10.
  */
@@ -16,6 +18,8 @@ public class TreeNode {
     private boolean isLeaf; //是否叶子节点
 
     private double threshold; //特征划分的阈值
+
+    private List<Double> votes; //0和1的投票
 
     public TreeNode() {
         this.setIsLeaf(false);
@@ -67,5 +71,14 @@ public class TreeNode {
 
     public void setFeatureIndex(int featureIndex) {
         this.featureIndex = featureIndex;
+    }
+
+
+    public List<Double> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<Double> votes) {
+        this.votes = votes;
     }
 }
