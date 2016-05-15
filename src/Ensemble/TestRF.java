@@ -49,12 +49,12 @@ public class TestRF {
         Integer tp = 0, tn = 0, fp = 0, fn = 0;
         for (int i = 0; i < labels.size(); i++) {
             if (pres.get(i) == 1 && labels.get(i) == 1) tp += 1;
-            else if (pres.get(i) == 1 && labels.get(i) == 0) tn += 1;
-            else if (pres.get(i) == 0 && labels.get(i) == 1) fp += 1;
-            else if (pres.get(i) == 0 && labels.get(i) == 0) fn += 1;
+            else if (pres.get(i) == 1 && labels.get(i) == 0) fp += 1;
+            else if (pres.get(i) == 0 && labels.get(i) == 1) fn += 1;
+            else if (pres.get(i) == 0 && labels.get(i) == 0) tn += 1;
         }
-        double precision = (double) tp / (tp + tn);
-        double recall = (double) tp / (tp + fp);
+        double precision = (double) tp / (tp + fp);
+        double recall = (double) tp / (tp + fn);
         double fScore = 2 * precision * recall / (precision + recall);
         System.out.println(name);
         System.out.println("tp: " + tp.toString() + " fp: " + fp.toString()
