@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class TestRF {
 
+    private static RandomForest rf;
+
     private static List<String> readNames(String filename) {
         List<String> allNames = new ArrayList<>();
         try {
@@ -57,23 +59,40 @@ public class TestRF {
         System.out.println(name);
         System.out.println("tp: " + tp.toString() + " fp: " + fp.toString()
                 + " tn: " + tn.toString() + " fn: " + fn.toString());
-        System.out.println("准确率: " + precision);
-        System.out.println("召回率: " + recall);
-        System.out.println("f值: " + fScore);
+        System.out.println("准确率: " + Math.round(precision * 1000) / 1000.0);
+        System.out.println("召回率: " + Math.round(recall * 1000) / 1000.0);
+        System.out.println("f值: " + Math.round(fScore * 1000) / 1000.0);
+    }
+
+    private static void test(String fileHead, String dataFile, String dataName) {
+        List<List<String>> test_data = readContent(fileHead + dataFile);
+        List<List<Double>> test_x = new ArrayList<>();
+        List<Integer> test_y = new ArrayList<>();
+        for (List<String> td : test_data) {
+            List<Double> rowX = new ArrayList<>();
+            for (int i = 0; i < td.size() - 1; i++) {
+                Double temp = new Double(td.get(i));
+                rowX.add(temp);
+            }
+            test_x.add(rowX);
+            test_y.add(new Integer(td.get(td.size() - 1)));
+        }
+        List<Integer> pre_y2 = rf.predict(test_x);
+        show_res(test_y, pre_y2, dataName);
     }
 
     public static void main(String[] args) {
-        String fileHead = "E:\\广告数据集\\code\\randomforest\\src\\dataset";
-        List<String> featureNames = readNames(fileHead + "\\train_set.csv");
-        RandomForest rf = new RandomForest(featureNames);
-        List<List<String>> train_data = readContent(fileHead + "\\train_set.csv");
+        String fileHead = System.getProperty("user.dir") +
+                "/src/dataset";
+        List<String> featureNames = readNames(fileHead + "/train_set.csv");
+        rf = new RandomForest(featureNames);
+        List<List<String>> train_data = readContent(fileHead + "/train_set.csv");
         List<List<Double>> train_x = new ArrayList<>();
         List<Integer> train_y = new ArrayList<>();
         for (List<String> td : train_data) {
             List<Double> rowX = new ArrayList<>();
             for (int i = 0; i < td.size() - 1; i++) {
                 Double temp = new Double(td.get(i));
-                temp = Math.round(temp * 1000) / 1000.0;
                 rowX.add(temp);
             }
             train_x.add(rowX);
@@ -81,38 +100,8 @@ public class TestRF {
         }
         rf.fit(train_x, train_y);
         rf.view_weight();
-
-        List<List<String>> validation_data = readContent(fileHead + "\\validation_set.csv");
-        List<List<Double>> validation_x = new ArrayList<>();
-        List<Integer> validation_y = new ArrayList<>();
-        for (List<String> td : validation_data) {
-            List<Double> rowX = new ArrayList<>();
-            for (int i = 0; i < td.size() - 1; i++) {
-                Double temp = new Double(td.get(i));
-                temp = Math.round(temp * 1000) / 1000.0;
-                rowX.add(temp);
-            }
-            validation_x.add(rowX);
-            validation_y.add(new Integer(td.get(td.size() - 1)));
-        }
-        List<Integer> pre_y = rf.predict(validation_x);
-        show_res(validation_y, pre_y, "验证集");
-
-        List<List<String>> test_data = readContent(fileHead + "\\test_set.csv");
-        List<List<Double>> test_x = new ArrayList<>();
-        List<Integer> test_y = new ArrayList<>();
-        for (List<String> td : test_data) {
-            List<Double> rowX = new ArrayList<>();
-            for (int i = 0; i < td.size() - 1; i++) {
-                Double temp = new Double(td.get(i));
-                temp = Math.round(temp * 1000) / 1000.0;
-                rowX.add(temp);
-            }
-            test_x.add(rowX);
-            test_y.add(new Integer(td.get(td.size() - 1)));
-        }
-        List<Integer> pre_y2 = rf.predict(test_x);
-        show_res(test_y, pre_y2, "测试集");
+        test(fileHead, "/validation_set.csv", "验证集");
+        test(fileHead, "/test_set.csv", "测试集");
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by fuhua in UC on 2016/5/10.
  */
-public class CartTree {
+class CartTree {
 
     private TreeNode rootNode; //根节点
 
@@ -17,81 +17,83 @@ public class CartTree {
 
     private int featureCnt; //特征总数
 
+    private int maxFeature; //最多使用的特征数
+
     private List<Double> infoGain; //每维特征的信息增益(默认使用基尼指数)
 
-    public CartTree(ArrayList<Sample> samples) {
-        this(samples, 20, 2);
-    }
 
-    public CartTree(List<Sample> samples, int maxDepth, int minSamplesSplit) {
+    CartTree(List<Sample> samples, int maxDepth,
+             int minSamplesSplit, int maxFeature) {
         this.setRootNode(new TreeNode());
         this.setSamples(samples);
         this.setMaxDepth(maxDepth);
         this.setMinSamplesSplit(minSamplesSplit);
+        this.setMaxFeature(maxFeature);
         this.setFeatureCnt(this.getSamples().get(0).getFeatures().size());
         this.setInfoGain(new ArrayList<>(Collections.nCopies(this.getFeatureCnt(), 0.0)));
     }
 
-    public void buildTree() {
+    void buildTree() {
         growTree(getRootNode(), getSamples(), generateRandomFeatureIndexes(),
                 1);
     }
 
-    public TreeNode getRootNode() {
+    TreeNode getRootNode() {
         return rootNode;
     }
 
-    public void setRootNode(TreeNode rootNode) {
+    private void setRootNode(TreeNode rootNode) {
         this.rootNode = rootNode;
     }
 
-    public List<Sample> getSamples() {
+    private List<Sample> getSamples() {
         return samples;
     }
 
-    public void setSamples(List<Sample> samples) {
+    private void setSamples(List<Sample> samples) {
         this.samples = samples;
     }
 
-    public int getMaxDepth() {
+    private int getMaxDepth() {
         return maxDepth;
     }
 
-    public void setMaxDepth(int maxDepth) {
+    private void setMaxDepth(int maxDepth) {
         this.maxDepth = maxDepth;
     }
 
-    public int getFeatureCnt() {
+    private int getFeatureCnt() {
         return featureCnt;
     }
 
-    public void setFeatureCnt(int featureCnt) {
+    private void setFeatureCnt(int featureCnt) {
         this.featureCnt = featureCnt;
     }
 
-    public List<Double> getInfoGain() {
+    List<Double> getInfoGain() {
         return infoGain;
     }
 
-    public void setInfoGain(List<Double> infoGain) {
+    private void setInfoGain(List<Double> infoGain) {
         this.infoGain = infoGain;
     }
 
-    public int getMinSamplesSplit() {
+    private int getMinSamplesSplit() {
         return minSamplesSplit;
     }
 
-    public void setMinSamplesSplit(int minSamplesSplit) {
+    private void setMinSamplesSplit(int minSamplesSplit) {
         this.minSamplesSplit = minSamplesSplit;
     }
 
-    public List<Double> traverseTree(Sample sample, TreeNode node) {
+    //遍历树得到预测结果
+    List<Double> traverseTree(Sample sample, TreeNode node) {
         if (node.isLeaf()) {
             return node.getVotes();
         } else {
             int featureIndex = node.getFeatureIndex();
             double threshold = node.getThreshold();
-            if (sample.getFeatures().get(featureIndex) < threshold) {
+            if (sample.getFeatures().get(featureIndex) <= threshold) {
                 return traverseTree(sample, node.getLeftNode());
             } else {
                 return traverseTree(sample, node.getRightNode());
@@ -122,8 +124,13 @@ public class CartTree {
             // 分割节点
             splitNode(node, samples, featureIndexes, majorLabel, depth);
         }
+        //投票
         if (node.isLeaf()) {
-            votes.set(majorLabel, (double) counts.get(majorLabel) / sampleSize);
+            double majorProb = (double) counts.get(majorLabel) / sampleSize;
+            if(majorLabel == 1)
+                votes.set(majorLabel, majorProb);
+            else
+                votes.set(majorLabel, majorProb);
             node.setVotes(votes);
         }
     }
@@ -179,15 +186,15 @@ public class CartTree {
                 Sample leftSample = samples.get(i), rightSample = samples.get(i + 1);
                 Double leftFeature = leftSample.getFeatures().get(featureIndex);
                 Double rightFeature = rightSample.getFeatures().get(featureIndex);
-                // 标签发生变化再分割
+                // 标签相同或特征相同则不分割
                 if (leftSample.getLabel() == rightSample.getLabel()
                         || leftFeature.equals(rightFeature)) {
                     continue;
                 }
                 List<Sample> leftSamples = samples.subList(0, i + 1);
                 List<Sample> rightSamples = samples.subList(i + 1, sampleSize);
-                double splitGini = 0.0;
-                double leftGini = calGini(leftSamples), rightGini = calGini(rightSamples);
+                Double splitGini = 0.0;
+                Double leftGini = calGini(leftSamples), rightGini = calGini(rightSamples);
                 splitGini += (double) leftSamples.size() / sampleSize * leftGini;
                 splitGini += (double) rightSamples.size() / sampleSize * rightGini;
                 // 分割样本的Gini小于当前最小Gini
@@ -250,8 +257,14 @@ public class CartTree {
             featureIndexes.add(i);
         }
         Collections.shuffle(featureIndexes);
-        int num = (int) Math.sqrt(getFeatureCnt());
-        return featureIndexes.subList(0, num);
+        return featureIndexes.subList(0, getMaxFeature());
     }
 
+    private int getMaxFeature() {
+        return maxFeature;
+    }
+
+    private void setMaxFeature(int maxFeature) {
+        this.maxFeature = maxFeature;
+    }
 }

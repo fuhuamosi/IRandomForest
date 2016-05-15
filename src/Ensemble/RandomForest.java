@@ -20,15 +20,19 @@ public class RandomForest {
 
     private List<Double> featureImportances;
 
+    private int maxFeature;
+
     public RandomForest(List<String> featureNames) {
-        this(featureNames, 30, 20, 30);
+        this(featureNames, 30, 20, 20, (int) Math.sqrt(featureNames.size()));
     }
 
-    public RandomForest(List<String> featureNames, int treeNum, int maxDepth, int minSamplesSplit) {
+    public RandomForest(List<String> featureNames, int treeNum,
+                        int maxDepth, int minSamplesSplit, int maxFeature) {
         this.setFeatureNames(featureNames);
         this.setTreeNum(treeNum);
         this.setMaxDepth(maxDepth);
         this.setMinSamplesSplit(minSamplesSplit);
+        this.setMaxFeature(maxFeature);
         this.setTrees(new ArrayList<CartTree>());
         this.setFeatureImportances(new ArrayList<>(Collections.nCopies(featureNames.size(), 0.0)));
     }
@@ -44,7 +48,8 @@ public class RandomForest {
         //以后可以拓展为并行化建树
         for (int i = 0; i < getTreeNum(); i++) {
             List<Sample> partSamples = bootstrap(samples);
-            CartTree tree = new CartTree(partSamples, getMaxDepth(), getMinSamplesSplit());
+            CartTree tree = new CartTree(partSamples, getMaxDepth(),
+                    getMinSamplesSplit(), getMaxFeature());
             tree.buildTree();
             getTrees().add(tree);
             //计算特征权重
@@ -159,5 +164,13 @@ public class RandomForest {
 
     public void setFeatureImportances(List<Double> featureImportances) {
         this.featureImportances = featureImportances;
+    }
+
+    public int getMaxFeature() {
+        return maxFeature;
+    }
+
+    public void setMaxFeature(int maxFeature) {
+        this.maxFeature = maxFeature;
     }
 }

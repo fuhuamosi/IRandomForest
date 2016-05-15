@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by fuhua in UC on 2016/5/10.
  */
-public class TreeNode {
+ class TreeNode {
 
     private int featureIndex; //节点特征索引
 
@@ -21,64 +21,64 @@ public class TreeNode {
 
     private List<Double> votes; //0和1的投票
 
-    public TreeNode() {
+     TreeNode() {
         this.setIsLeaf(false);
     }
 
-    public TreeNode getLeftNode() {
+     TreeNode getLeftNode() {
         return leftNode;
     }
 
-    public void setLeftNode(TreeNode leftNode) {
+     void setLeftNode(TreeNode leftNode) {
         this.leftNode = leftNode;
     }
 
-    public TreeNode getRightNode() {
+     TreeNode getRightNode() {
         return rightNode;
     }
 
-    public void setRightNode(TreeNode rightNode) {
+     void setRightNode(TreeNode rightNode) {
         this.rightNode = rightNode;
     }
 
-    public int getLabel() {
+     int getLabel() {
         return label;
     }
 
-    public void setLabel(int label) {
+     void setLabel(int label) {
         this.label = label;
     }
 
-    public double getThreshold() {
+     double getThreshold() {
         return threshold;
     }
 
-    public void setThreshold(double threshold) {
+     void setThreshold(double threshold) {
         this.threshold = threshold;
     }
 
-    public boolean isLeaf() {
+     boolean isLeaf() {
         return isLeaf;
     }
 
-    public void setIsLeaf(boolean isLeaf) {
+     void setIsLeaf(boolean isLeaf) {
         this.isLeaf = isLeaf;
     }
 
-    public int getFeatureIndex() {
+     int getFeatureIndex() {
         return featureIndex;
     }
 
-    public void setFeatureIndex(int featureIndex) {
+     void setFeatureIndex(int featureIndex) {
         this.featureIndex = featureIndex;
     }
 
 
-    public List<Double> getVotes() {
+     List<Double> getVotes() {
         return votes;
     }
 
-    public void setVotes(List<Double> votes) {
+     void setVotes(List<Double> votes) {
         this.votes = votes;
     }
 }
