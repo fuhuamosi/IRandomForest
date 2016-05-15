@@ -98,7 +98,7 @@ public class RandomForest {
                 negVote += pre_y.get(0);
                 posVote += pre_y.get(1);
             }
-            int predict = (posVote >= negVote ? 1 : 0);
+            int predict = (posVote >= 10.5 ? 1 : 0);
             predictions.add(predict);
         }
         return predictions;
