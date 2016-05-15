@@ -102,6 +102,7 @@ public class TestRF {
         rf.view_weight();
         test(fileHead, "/validation_set.csv", "验证集");
         test(fileHead, "/test_set.csv", "测试集");
+        test(fileHead, "/test_set2.csv", "测试集2");
     }
 
 }

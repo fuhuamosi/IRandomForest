@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71006596-ebdb-4386-8548-60cfab701ee6" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/dataset/test_set2.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Ensemble/TestRF.java" afterPath="$PROJECT_DIR$/src/Ensemble/TestRF.java" />
     </list>
@@ -50,8 +51,28 @@
       <file leaf-file-name="TestRF.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Ensemble/TestRF.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="56" column="48" selection-start-line="56" selection-start-column="48" selection-end-line="56" selection-end-column="48" />
+            <state relative-caret-position="302">
+              <caret line="105" column="5" selection-start-line="105" selection-start-column="5" selection-end-line="105" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_set.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dataset/test_set.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="214">
+              <caret line="18768" column="41" selection-start-line="0" selection-start-column="0" selection-end-line="18774" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="validation_set.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dataset/validation_set.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="258">
+              <caret line="8752" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="8752" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -73,8 +94,8 @@
       <file leaf-file-name="CartTree.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Ensemble/CartTree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="132" column="47" selection-start-line="132" selection-start-column="47" selection-end-line="132" selection-end-column="47" />
+            <state relative-caret-position="148">
+              <caret line="133" column="33" selection-start-line="133" selection-start-column="33" selection-end-line="133" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -83,7 +104,7 @@
       <file leaf-file-name="RandomForest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Ensemble/RandomForest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1012">
+            <state relative-caret-position="-358">
               <caret line="95" column="50" selection-start-line="95" selection-start-column="50" selection-end-line="95" selection-end-column="50" />
               <folding />
             </state>
@@ -121,6 +142,7 @@
         <option value="$PROJECT_DIR$/src/dataset/train2.csv" />
         <option value="$PROJECT_DIR$/src/Ensemble/RandomForest.java" />
         <option value="$PROJECT_DIR$/src/Ensemble/CartTree.java" />
+        <option value="$PROJECT_DIR$/src/dataset/test_set2.csv" />
         <option value="$PROJECT_DIR$/src/Ensemble/TestRF.java" />
       </list>
     </option>
@@ -650,7 +672,14 @@
       <option name="project" value="LOCAL" />
       <updated>1463321065553</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="修正了准确率和召回率的计算公式">
+      <created>1463336124933</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1463336124933</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -705,7 +734,8 @@
     <MESSAGE value="增加了数据集" />
     <MESSAGE value="修改了自助采样以及特征权重的计算" />
     <MESSAGE value="增强了函数的复用" />
-    <option name="LAST_COMMIT_MESSAGE" value="增强了函数的复用" />
+    <MESSAGE value="修正了准确率和召回率的计算公式" />
+    <option name="LAST_COMMIT_MESSAGE" value="修正了准确率和召回率的计算公式" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -722,14 +752,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Ensemble/CartTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/src.zip!/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21736">
@@ -1073,34 +1095,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dataset/validation_set.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="8752" column="0" selection-start-line="8752" selection-start-column="0" selection-end-line="8752" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/dataset/train2_set.csv" />
     <entry file="file://$PROJECT_DIR$/src/dataset/train_set.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="13" column="54" selection-start-line="13" selection-start-column="54" selection-end-line="13" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dataset/test_set.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="18768" column="41" selection-start-line="18768" selection-start-column="41" selection-end-line="18768" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Ensemble/CartTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="132" column="47" selection-start-line="132" selection-start-column="47" selection-end-line="132" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1115,18 +1114,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Ensemble/CartTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="133" column="33" selection-start-line="133" selection-start-column="33" selection-end-line="133" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Ensemble/RandomForest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1012">
+        <state relative-caret-position="-358">
           <caret line="95" column="50" selection-start-line="95" selection-start-column="50" selection-end-line="95" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataset/validation_set.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="8752" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="8752" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataset/test_set.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="18768" column="41" selection-start-line="0" selection-start-column="0" selection-end-line="18774" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataset/test_set2.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="8749" column="54" selection-start-line="8749" selection-start-column="54" selection-end-line="8749" selection-end-column="54" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Ensemble/TestRF.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="56" column="48" selection-start-line="56" selection-start-column="48" selection-end-line="56" selection-end-column="48" />
+        <state relative-caret-position="302">
+          <caret line="105" column="5" selection-start-line="105" selection-start-column="5" selection-end-line="105" selection-end-column="5" />
           <folding />
         </state>
       </provider>
