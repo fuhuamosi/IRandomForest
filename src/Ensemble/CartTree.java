@@ -21,6 +21,7 @@ class CartTree {
 
     private List<Double> infoGain; //每维特征的信息增益(默认使用基尼指数)
 
+    private List<Integer> featureIndexes;
 
     CartTree(List<Sample> samples, int maxDepth,
              int minSamplesSplit, int maxFeature) {
@@ -31,6 +32,10 @@ class CartTree {
         this.setMaxFeature(maxFeature);
         this.setFeatureCnt(this.getSamples().get(0).getFeatures().size());
         this.setInfoGain(new ArrayList<>(Collections.nCopies(this.getFeatureCnt(), 0.0)));
+        featureIndexes = new ArrayList<>();
+        for (int i = 0; i < getFeatureCnt(); i++) {
+            featureIndexes.add(i);
+        }
     }
 
     void buildTree() {
@@ -127,10 +132,7 @@ class CartTree {
         //投票
         if (node.isLeaf()) {
             double majorProb = (double) counts.get(majorLabel) / sampleSize;
-            if(majorLabel == 1)
-                votes.set(majorLabel, majorProb);
-            else
-                votes.set(majorLabel, majorProb);
+            votes.set(majorLabel, majorProb);
             node.setVotes(votes);
         }
     }
@@ -175,7 +177,8 @@ class CartTree {
         double bestThreshold = -1;
         List<Sample> bestLeftSamples = null, bestRightSamples = null;
         double bestLeftGini = 0, bestRightGini = 0;
-        for (Integer featureIndex : featureIndexes) {
+        for (int j = 0; j < featureIndexes.size(); j++) {
+            int featureIndex = featureIndexes.get(j);
             // 设置临时的排序特征
             for (Sample sample : samples) {
                 sample.setSortFeature(sample.getFeatures().get(featureIndex));
@@ -208,6 +211,8 @@ class CartTree {
                     bestRightGini = rightGini;
                 }
             }
+
+            if (j + 1 >= getMaxFeature() && bestFeatureIndex != -1) break;
         }
 
         List<Object> bestList = new ArrayList<>();
@@ -252,12 +257,8 @@ class CartTree {
 
     // 随机选取特征
     private List<Integer> generateRandomFeatureIndexes() {
-        List<Integer> featureIndexes = new ArrayList<>();
-        for (int i = 0; i < getFeatureCnt(); i++) {
-            featureIndexes.add(i);
-        }
         Collections.shuffle(featureIndexes);
-        return featureIndexes.subList(0, getMaxFeature());
+        return featureIndexes;
     }
 
     private int getMaxFeature() {

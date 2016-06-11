@@ -23,7 +23,7 @@ public class RandomForest {
     private int maxFeature;
 
     public RandomForest(List<String> featureNames) {
-        this(featureNames, 30, 20, 20, (int) Math.sqrt(featureNames.size()));
+        this(featureNames, 50, 30, 30, (int) Math.sqrt(featureNames.size()));
     }
 
     public RandomForest(List<String> featureNames, int treeNum,
@@ -98,7 +98,7 @@ public class RandomForest {
                 negVote += pre_y.get(0);
                 posVote += pre_y.get(1);
             }
-            int predict = (posVote >= 10.5 ? 1 : 0);
+            int predict = (posVote >= negVote ? 1 : 0);
             predictions.add(predict);
         }
         return predictions;
